@@ -89,7 +89,6 @@ function update() {
 	var crnum = (omega > Math.ceil(runningtotal/2) ? 0 : Math.ceil((runningtotal - omega*2)/3)) + omega;
 	if (crnum == 0) {
 		$('.inputtxt').val("");
-		document.getElementById('paypal').href = "https://paypal.me/silverhawke";
 		return;
 	}
 	if (runningtotal != 0)
@@ -161,66 +160,6 @@ function clickbind() {
 		update();
 	});
 }
-
-function writequeue() {
-	var path = "queue.txt";
-	var request = new XMLHttpRequest();
-	request.open('GET',path,true);
-	request.send(null);
-	request.onreadystatechange = function () {
-		if (request.readyState === 4 && request.status === 200) {
-			x = document.getElementsByClassName("fixed")[0];
-			qdb = request.responseText.split("\n");
-			var s = "";
-			var p = 0;
-			for (i=0; i<qdb.length; i++) {
-				if (qdb[i][0] == '[') {
-					if (s != "") {
-						if (c > 1) {
-							s2 = "<div class=\"cards\">";
-							s2 += "[" + p + "]";
-							s2 += "<div class=\"wrapper dropdown\">";
-							s2 += s;
-							s2 += "</div></div>";
-						} else {
-							s2 = "<div class=\"cards inactive\">";
-							s2 += "[" + p + "]";
-							s2 += "</div>";
-						}
-						x.innerHTML += s2;
-					}
-					p++;
-					s = "";
-					c = 0;
-				} else {
-					if (c == 0) {
-						s += "<p class=\"cardnum\">";
-						s += qdb[i].trim();
-						s += "</p>";
-					} else {
-						s += "<p>";
-						s += qdb[i].trim();
-						s += "</p>";
-					}
-					c++;
-				}
-			}
-			if (c > 1) {
-				s2 = "<div class=\"cards\">";
-				s2 += "[" + p + "]";
-				s2 += "<div class=\"wrapper dropdown\">";
-				s2 += s;
-				s2 += "</div></div>";
-			} else {
-				s2 = "<div class=\"cards inactive\">";
-				s2 += "[" + p + "]";
-				s2 += "</div>";
-			}
-			x.innerHTML += s2;
-		}
-	}
-}
-
 function parse() {
 	var path = "blaster.txt";
 	var request = new XMLHttpRequest();
@@ -307,7 +246,6 @@ function parse() {
 						writein += "<input class=\"btn\" type=\"button\" value=\"clear all\" onclick=\"clearall()\">";
 						x.innerHTML += writein;
 						clickbind();
-						writequeue();
 						$('.wrapper:not(.dropdown)').css("visibility", "visible");
 					}
 				}
