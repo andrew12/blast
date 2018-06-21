@@ -50,7 +50,7 @@ function clearall() {
 }
 
 function update() {
-	var blaster_accel = false;
+	var blaster_accel = true;
 	var text = "";
 	var reqtext = "";
 	var runningtotal = 0;
